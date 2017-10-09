@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectoreeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="EXPERIENCE">
+    <Key>
+      <PropertyRef Name="userid" />
+      <PropertyRef Name="experience" />
+    </Key>
+    <Property Name="userid" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="experience" Type="varchar" MaxLength="2000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LISTINGS">
+    <Key>
+      <PropertyRef Name="projectid" />
+    </Key>
+    <Property Name="projectid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="discipline" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="6000" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="255" />
+    <Property Name="contactnumber" Type="bigint" />
+    <Property Name="subcategory" Type="varchar" MaxLength="255" />
+    <Property Name="supervisors" Type="varchar" MaxLength="765" />
+    <Property Name="timeframe" Type="int" />
+    <Property Name="startdate" Type="date" />
+    <Property Name="expiredate" Type="date" />
+    <Property Name="mode" Type="int" />
+    <Property Name="location" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="PROFILES">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="lastname" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="discipline" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="contactnumber" Type="bigint" />
+    <Property Name="skills" Type="varchar" MaxLength="5000" />
+    <Property Name="units" Type="varchar" MaxLength="255" />
+    <Property Name="interests" Type="varchar" MaxLength="2000" />
+    <Property Name="bio" Type="varchar" MaxLength="2000" />
+  </EntityType>
+  <Association Name="FK__EXPERIENC__useri__6754599E">
+    <End Role="PROFILES" Type="Self.PROFILES" Multiplicity="1" />
+    <End Role="EXPERIENCE" Type="Self.EXPERIENCE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROFILES">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="EXPERIENCE">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LISTINGS__userid__656C112C">
+    <End Role="PROFILES" Type="Self.PROFILES" Multiplicity="1" />
+    <End Role="LISTINGS" Type="Self.LISTINGS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROFILES">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="LISTINGS">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjectoreeModelStoreContainer">
+    <EntitySet Name="LISTINGS" EntityType="Self.LISTINGS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PROFILES" EntityType="Self.PROFILES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EXPERIENCE" EntityType="Self.EXPERIENCE" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [EXPERIENCE].[userid] AS [userid], 
+    [EXPERIENCE].[experience] AS [experience]
+    FROM [dbo].[EXPERIENCE] AS [EXPERIENCE]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__EXPERIENC__useri__6754599E" Association="Self.FK__EXPERIENC__useri__6754599E">
+      <End Role="PROFILES" EntitySet="PROFILES" />
+      <End Role="EXPERIENCE" EntitySet="EXPERIENCE" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LISTINGS__userid__656C112C" Association="Self.FK__LISTINGS__userid__656C112C">
+      <End Role="PROFILES" EntitySet="PROFILES" />
+      <End Role="LISTINGS" EntitySet="LISTINGS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
