@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7d73b9d1a8f944be9bfca70a2c2b3e0d" Name="Diagram1">
+        <EntityTypeShape EntityType="ProjectoreeModel.LISTING" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectoreeModel.PROFILE" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectoreeModel.EXPERIENCE" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="ProjectoreeModel.FK__LISTINGS__userid__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectoreeModel.FK__EXPERIENC__useri__6754599E" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
