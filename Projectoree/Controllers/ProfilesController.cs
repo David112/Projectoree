@@ -6,6 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Projectoree.Models;
 
 namespace Projectoree.Controllers
@@ -27,18 +30,26 @@ namespace Projectoree.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PROFILE pROFILE = db.PROFILES.Find(id);
-            if (pROFILE == null)
+            PROFILE Profile = db.PROFILES.Find(id);
+            if (Profile == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Manage");
             }
-            return View(pROFILE);
+            return View(Profile);
         }
 
-        // GET: Profiles/Create
+        //GET: Profiles/Create
         public ActionResult Create()
         {
-            return View();
+            if (TempData["profile"] != null)
+            {
+                Create((PROFILE)TempData["profile"]);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Register", "Account");
+            }
         }
 
         // POST: Profiles/Create
@@ -46,16 +57,18 @@ namespace Projectoree.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "userid,firstname,lastname,email,discipline,contactnumber,skills,units,interests,bio")] PROFILE pROFILE)
+        public ActionResult Create([Bind(Include = "userid,firstname,lastname,email,discipline,contactnumber,skills,units,interests,bio")] PROFILE Profile)
         {
             if (ModelState.IsValid)
             {
-                db.PROFILES.Add(pROFILE);
+                Profile.userid = User.Identity.GetUserId();
+                db.PROFILES.Add(Profile);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Index", "Manage");
             }
 
-            return View(pROFILE);
+            return RedirectToAction("Index", "Manage");
         }
 
         // GET: Profiles/Edit/5
@@ -63,14 +76,15 @@ namespace Projectoree.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Manage");
+                    //new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PROFILE pROFILE = db.PROFILES.Find(id);
-            if (pROFILE == null)
+            PROFILE Profile = db.PROFILES.Find(id);
+            if (Profile == null)
             {
                 return HttpNotFound();
             }
-            return View(pROFILE);
+            return View(Profile);
         }
 
         // POST: Profiles/Edit/5
@@ -78,15 +92,16 @@ namespace Projectoree.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userid,firstname,lastname,email,discipline,contactnumber,skills,units,interests,bio")] PROFILE pROFILE)
+        public ActionResult Edit([Bind(Include = "userid,firstname,lastname,email,discipline,contactnumber,skills,units,interests,bio")] PROFILE Profile)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pROFILE).State = EntityState.Modified;
+                Profile.email = User.Identity.GetUserName();
+                db.Entry(Profile).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(pROFILE);
+            return View(Profile);
         }
 
         // GET: Profiles/Delete/5
@@ -94,25 +109,41 @@ namespace Projectoree.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                id = User.Identity.GetUserId();
+                if (id == null)
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
             }
-            PROFILE pROFILE = db.PROFILES.Find(id);
-            if (pROFILE == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pROFILE);
+
+            PROFILE Profile = db.PROFILES.Find(id);
+            
+            return View(Profile);
         }
 
         // POST: Profiles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed()
+        {
+            var id = User.Identity.GetUserId();
+            PROFILE Profile = db.PROFILES.Find(id);
+            //db.PROFILES.Remove(Profile);
+            //db.SaveChanges();
+
+            return RedirectToAction("DeleteUser", "Account", new { id });
+        }
         public ActionResult DeleteConfirmed(string id)
         {
-            PROFILE pROFILE = db.PROFILES.Find(id);
-            db.PROFILES.Remove(pROFILE);
+            if (id == null)
+            {
+                id = User.Identity.GetUserId();
+            }
+            PROFILE Profile = db.PROFILES.Find(id);
+            db.PROFILES.Remove(Profile);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("DeleteUser", "Account", new { id });
         }
 
         protected override void Dispose(bool disposing)
