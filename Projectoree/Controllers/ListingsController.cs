@@ -50,6 +50,11 @@ namespace Projectoree.Controllers
         public ActionResult MyProjects()
         {
             var userID = User.Identity.GetUserId();
+            if (userID == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var listings = db.LISTINGS.Where(db => db.userid == userID);
             return View(listings.ToList());
         }
