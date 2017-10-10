@@ -36,16 +36,7 @@
     <Property Name="interests" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
     <Property Name="bio" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="LISTINGS" Relationship="Self.FK__LISTINGS__userid__656C112C" FromRole="PROFILES" ToRole="LISTINGS" />
-    <NavigationProperty Name="EXPERIENCEs" Relationship="Self.FK__EXPERIENC__useri__6754599E" FromRole="PROFILES" ToRole="EXPERIENCE" />
-  </EntityType>
-  <EntityType Name="EXPERIENCE">
-    <Key>
-      <PropertyRef Name="userid" />
-      <PropertyRef Name="experience1" />
-    </Key>
-    <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="experience1" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="PROFILE" Relationship="Self.FK__EXPERIENC__useri__6754599E" FromRole="EXPERIENCE" ToRole="PROFILES" />
+    <NavigationProperty Name="EXPERIENCEs" Relationship="ProjectoreeModel.FK__EXPERIENC__useri__6EF57B66" FromRole="PROFILE" ToRole="EXPERIENCE" />
   </EntityType>
   <Association Name="FK__LISTINGS__userid__656C112C">
     <End Role="PROFILES" Type="Self.PROFILE" Multiplicity="1" />
@@ -59,11 +50,33 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__EXPERIENC__useri__6754599E">
-    <End Role="PROFILES" Type="Self.PROFILE" Multiplicity="1" />
-    <End Role="EXPERIENCE" Type="Self.EXPERIENCE" Multiplicity="*" />
+  <EntityContainer Name="ProjectoreeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="LISTINGS" EntityType="Self.LISTING" />
+    <EntitySet Name="PROFILES" EntityType="Self.PROFILE" />
+    <AssociationSet Name="FK__LISTINGS__userid__656C112C" Association="Self.FK__LISTINGS__userid__656C112C">
+      <End Role="PROFILES" EntitySet="PROFILES" />
+      <End Role="LISTINGS" EntitySet="LISTINGS" />
+    </AssociationSet>
+    <EntitySet Name="EXPERIENCEs" EntityType="ProjectoreeModel.EXPERIENCE" />
+    <AssociationSet Name="FK__EXPERIENC__useri__6EF57B66" Association="ProjectoreeModel.FK__EXPERIENC__useri__6EF57B66">
+      <End Role="PROFILE" EntitySet="PROFILES" />
+      <End Role="EXPERIENCE" EntitySet="EXPERIENCEs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="EXPERIENCE">
+    <Key>
+      <PropertyRef Name="experienceid" />
+    </Key>
+    <Property Name="experienceid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="experience1" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PROFILE" Relationship="ProjectoreeModel.FK__EXPERIENC__useri__6EF57B66" FromRole="EXPERIENCE" ToRole="PROFILE" />
+  </EntityType>
+  <Association Name="FK__EXPERIENC__useri__6EF57B66">
+    <End Type="ProjectoreeModel.PROFILE" Role="PROFILE" Multiplicity="1" />
+    <End Type="ProjectoreeModel.EXPERIENCE" Role="EXPERIENCE" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="PROFILES">
+      <Principal Role="PROFILE">
         <PropertyRef Name="userid" />
       </Principal>
       <Dependent Role="EXPERIENCE">
@@ -71,17 +84,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ProjectoreeEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="LISTINGS" EntityType="Self.LISTING" />
-    <EntitySet Name="PROFILES" EntityType="Self.PROFILE" />
-    <EntitySet Name="EXPERIENCEs" EntityType="Self.EXPERIENCE" />
-    <AssociationSet Name="FK__LISTINGS__userid__656C112C" Association="Self.FK__LISTINGS__userid__656C112C">
-      <End Role="PROFILES" EntitySet="PROFILES" />
-      <End Role="LISTINGS" EntitySet="LISTINGS" />
-    </AssociationSet>
-    <AssociationSet Name="FK__EXPERIENC__useri__6754599E" Association="Self.FK__EXPERIENC__useri__6754599E">
-      <End Role="PROFILES" EntitySet="PROFILES" />
-      <End Role="EXPERIENCE" EntitySet="EXPERIENCEs" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

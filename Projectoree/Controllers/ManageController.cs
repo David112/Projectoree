@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -97,7 +99,8 @@ namespace Projectoree.Controllers
                 bio = Profile.bio
             };
 
-            
+            foreach (EXPERIENCE exp in db.EXPERIENCEs.Include(e => e.PROFILE)) { }
+            TempData["experiences"] = "a";
             return View(model);
         }
 

@@ -82,7 +82,7 @@ namespace Projectoree.Controllers
             PROFILE Profile = db.PROFILES.Find(id);
             if (Profile == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Manage");
             }
             return View(Profile);
         }
@@ -99,7 +99,7 @@ namespace Projectoree.Controllers
                 Profile.email = User.Identity.GetUserName();
                 db.Entry(Profile).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Manage");
             }
             return View(Profile);
         }
@@ -128,8 +128,8 @@ namespace Projectoree.Controllers
         {
             var id = User.Identity.GetUserId();
             PROFILE Profile = db.PROFILES.Find(id);
-            //db.PROFILES.Remove(Profile);
-            //db.SaveChanges();
+            db.PROFILES.Remove(Profile);
+            db.SaveChanges();
 
             return RedirectToAction("DeleteUser", "Account", new { id });
         }

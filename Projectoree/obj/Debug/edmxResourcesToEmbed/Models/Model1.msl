@@ -41,8 +41,9 @@
     <EntitySetMapping Name="EXPERIENCEs">
       <EntityTypeMapping TypeName="ProjectoreeModel.EXPERIENCE">
         <MappingFragment StoreEntitySet="EXPERIENCE">
-          <ScalarProperty Name="userid" ColumnName="userid" />
           <ScalarProperty Name="experience1" ColumnName="experience" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="experienceid" ColumnName="experienceid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -14,6 +14,7 @@ namespace Projectoree.Models
     
     public partial class EXPERIENCE
     {
+        public long experienceid { get; set; }
         public string userid { get; set; }
         public string experience1 { get; set; }
     

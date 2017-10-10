@@ -17,23 +17,23 @@ namespace Projectoree.Controllers
         // GET: Experiences
         public ActionResult Index()
         {
-            var experiences = db.EXPERIENCEs.Include(e => e.PROFILE);
-            return View(experiences.ToList());
+            var eXPERIENCEs = db.EXPERIENCEs.Include(e => e.PROFILE);
+            return View(eXPERIENCEs.ToList());
         }
 
         // GET: Experiences/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EXPERIENCE experience = db.EXPERIENCEs.Find(id);
-            if (experience == null)
+            EXPERIENCE eXPERIENCE = db.EXPERIENCEs.Find(id);
+            if (eXPERIENCE == null)
             {
                 return HttpNotFound();
             }
-            return View(experience);
+            return View(eXPERIENCE);
         }
 
         // GET: Experiences/Create
@@ -48,33 +48,33 @@ namespace Projectoree.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "userid,experience1")] EXPERIENCE experience)
+        public ActionResult Create([Bind(Include = "experienceid,userid,experience1")] EXPERIENCE eXPERIENCE)
         {
             if (ModelState.IsValid)
             {
-                db.EXPERIENCEs.Add(experience);
+                db.EXPERIENCEs.Add(eXPERIENCE);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.userid = new SelectList(db.PROFILES, "userid", "firstname", experience.userid);
-            return View(experience);
+            ViewBag.userid = new SelectList(db.PROFILES, "userid", "firstname", eXPERIENCE.userid);
+            return View(eXPERIENCE);
         }
 
         // GET: Experiences/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EXPERIENCE experience = db.EXPERIENCEs.Find(id);
-            if (experience == null)
+            EXPERIENCE eXPERIENCE = db.EXPERIENCEs.Find(id);
+            if (eXPERIENCE == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.userid = new SelectList(db.PROFILES, "userid", "firstname", experience.userid);
-            return View(experience);
+            ViewBag.userid = new SelectList(db.PROFILES, "userid", "firstname", eXPERIENCE.userid);
+            return View(eXPERIENCE);
         }
 
         // POST: Experiences/Edit/5
@@ -82,40 +82,40 @@ namespace Projectoree.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userid,experience1")] EXPERIENCE experience)
+        public ActionResult Edit([Bind(Include = "experienceid,userid,experience1")] EXPERIENCE eXPERIENCE)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(experience).State = EntityState.Modified;
+                db.Entry(eXPERIENCE).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.userid = new SelectList(db.PROFILES, "userid", "firstname", experience.userid);
-            return View(experience);
+            ViewBag.userid = new SelectList(db.PROFILES, "userid", "firstname", eXPERIENCE.userid);
+            return View(eXPERIENCE);
         }
 
         // GET: Experiences/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EXPERIENCE experience = db.EXPERIENCEs.Find(id);
-            if (experience == null)
+            EXPERIENCE eXPERIENCE = db.EXPERIENCEs.Find(id);
+            if (eXPERIENCE == null)
             {
                 return HttpNotFound();
             }
-            return View(experience);
+            return View(eXPERIENCE);
         }
 
         // POST: Experiences/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(long id)
         {
-            EXPERIENCE experience = db.EXPERIENCEs.Find(id);
-            db.EXPERIENCEs.Remove(experience);
+            EXPERIENCE eXPERIENCE = db.EXPERIENCEs.Find(id);
+            db.EXPERIENCEs.Remove(eXPERIENCE);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
