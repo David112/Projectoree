@@ -15,6 +15,7 @@ namespace Projectoree.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ProjectoreeEntities db = new ProjectoreeEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -155,21 +156,43 @@ namespace Projectoree.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    PROFILE Profile = new PROFILE();
+                    Profile.userid = User.Identity.GetUserId();
+                    Profile.firstname = model.Givenname;
+                    Profile.lastname = model.Surname;
+                    Profile.discipline = model.Discipline;
+                    Profile.email = model.Email;;
+                    
+                    TempData["profile"] = Profile;
+                    return RedirectToAction("Create", "Profiles");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //Account /Delete
+        public async Task<ActionResult> DeleteUser(string id)
+        {
+            // Require that the user has already logged in via username/password or external login
+            if (!await SignInManager.HasBeenVerifiedAsync())
+            {
+                var user = UserManager.FindById(id);
+                var result = await UserManager.DeleteAsync(user);
+            }
+
+            LogOff();
+            return RedirectToAction("Index", "Home");
         }
 
         //

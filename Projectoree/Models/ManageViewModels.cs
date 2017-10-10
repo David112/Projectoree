@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -12,6 +13,16 @@ namespace Projectoree.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public string userid { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public string email { get; set; }
+        public string discipline { get; set; }
+        public Nullable<long> contactnumber { get; set; }
+        public string skills { get; set; }
+        public string units { get; set; }
+        public string interests { get; set; }
+        public string bio { get; set; }
     }
 
     public class ManageLoginsViewModel

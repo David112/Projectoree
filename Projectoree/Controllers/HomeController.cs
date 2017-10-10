@@ -13,6 +13,11 @@ namespace Projectoree.Controllers
             return View();
         }
 
+        public ActionResult Pause()
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

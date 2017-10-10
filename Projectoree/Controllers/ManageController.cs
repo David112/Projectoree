@@ -13,6 +13,7 @@ namespace Projectoree.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private ProjectoreeEntities db = new ProjectoreeEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -50,6 +51,11 @@ namespace Projectoree.Controllers
             }
         }
 
+        public ActionResult Edit(string id)
+        {
+            return RedirectToAction("Edit", "Profiles", new { id });
+        }
+
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
@@ -63,15 +69,35 @@ namespace Projectoree.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
-            var userId = User.Identity.GetUserId();
+            var userID = User.Identity.GetUserId();
+            PROFILE Profile = db.PROFILES.Find(userID);
+
+            if (userID == null || Profile == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                //PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                //TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userID),
+                Logins = await UserManager.GetLoginsAsync(userID),
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userID),
+
+                userid = userID,
+                firstname = Profile.firstname,
+                lastname = Profile.lastname,
+                email = Profile.email,
+                discipline = Profile.discipline,
+                contactnumber = Profile.contactnumber,
+                skills = Profile.skills,
+                units = Profile.units,
+                interests = Profile.interests,
+                bio = Profile.bio
             };
+
+            
             return View(model);
         }
 

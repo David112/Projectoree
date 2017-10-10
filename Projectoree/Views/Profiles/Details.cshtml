@@ -1,0 +1,90 @@
+﻿@model Projectoree.Models.PROFILE
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PROFILE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.discipline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.discipline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contactnumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contactnumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.skills)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.skills)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.units)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.units)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.interests)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.interests)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bio)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.userid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

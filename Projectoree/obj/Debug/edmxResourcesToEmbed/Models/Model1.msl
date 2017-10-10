@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjectoreeModelStoreContainer" CdmEntityContainer="ProjectoreeEntities">
+    <EntitySetMapping Name="LISTINGS">
+      <EntityTypeMapping TypeName="ProjectoreeModel.LISTING">
+        <MappingFragment StoreEntitySet="LISTINGS">
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="discipline" ColumnName="discipline" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contactnumber" ColumnName="contactnumber" />
+          <ScalarProperty Name="subcategory" ColumnName="subcategory" />
+          <ScalarProperty Name="supervisors" ColumnName="supervisors" />
+          <ScalarProperty Name="timeframe" ColumnName="timeframe" />
+          <ScalarProperty Name="startdate" ColumnName="startdate" />
+          <ScalarProperty Name="expiredate" ColumnName="expiredate" />
+          <ScalarProperty Name="mode" ColumnName="mode" />
+          <ScalarProperty Name="location" ColumnName="location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROFILES">
+      <EntityTypeMapping TypeName="ProjectoreeModel.PROFILE">
+        <MappingFragment StoreEntitySet="PROFILES">
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="discipline" ColumnName="discipline" />
+          <ScalarProperty Name="contactnumber" ColumnName="contactnumber" />
+          <ScalarProperty Name="skills" ColumnName="skills" />
+          <ScalarProperty Name="units" ColumnName="units" />
+          <ScalarProperty Name="interests" ColumnName="interests" />
+          <ScalarProperty Name="bio" ColumnName="bio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EXPERIENCEs">
+      <EntityTypeMapping TypeName="ProjectoreeModel.EXPERIENCE">
+        <MappingFragment StoreEntitySet="EXPERIENCE">
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="experience1" ColumnName="experience" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
