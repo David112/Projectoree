@@ -15,7 +15,8 @@
     <Property Name="projectid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userid" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="type" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="listingType" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="seeker" Type="bit" Nullable="false" />
     <Property Name="discipline" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="6000" Nullable="false" />
     <Property Name="email" Type="varchar" MaxLength="255" />
@@ -55,7 +56,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__LISTINGS__userid__656C112C">
+  <Association Name="FK__LISTINGS__userid__71D1E811">
     <End Role="PROFILES" Type="Self.PROFILES" Multiplicity="1" />
     <End Role="LISTINGS" Type="Self.LISTINGS" Multiplicity="*" />
     <ReferentialConstraint>
@@ -75,7 +76,7 @@
       <End Role="PROFILES" EntitySet="PROFILES" />
       <End Role="EXPERIENCE" EntitySet="EXPERIENCE" />
     </AssociationSet>
-    <AssociationSet Name="FK__LISTINGS__userid__656C112C" Association="Self.FK__LISTINGS__userid__656C112C">
+    <AssociationSet Name="FK__LISTINGS__userid__71D1E811" Association="Self.FK__LISTINGS__userid__71D1E811">
       <End Role="PROFILES" EntitySet="PROFILES" />
       <End Role="LISTINGS" EntitySet="LISTINGS" />
     </AssociationSet>

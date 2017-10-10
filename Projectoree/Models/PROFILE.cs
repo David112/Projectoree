@@ -17,8 +17,8 @@ namespace Projectoree.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PROFILE()
         {
-            this.LISTINGS = new HashSet<LISTING>();
             this.EXPERIENCEs = new HashSet<EXPERIENCE>();
+            this.LISTINGS = new HashSet<LISTING>();
         }
     
         public string userid { get; set; }
@@ -33,8 +33,8 @@ namespace Projectoree.Models
         public string bio { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LISTING> LISTINGS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EXPERIENCE> EXPERIENCEs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LISTING> LISTINGS { get; set; }
     }
 }

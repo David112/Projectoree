@@ -20,7 +20,8 @@
           <Property Name="projectid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userid" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="type" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="listingType" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="seeker" Type="bit" Nullable="false" />
           <Property Name="discipline" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="6000" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="255" />
@@ -60,7 +61,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LISTINGS__userid__656C112C">
+        <Association Name="FK__LISTINGS__userid__71D1E811">
           <End Role="PROFILES" Type="Self.PROFILES" Multiplicity="1" />
           <End Role="LISTINGS" Type="Self.LISTINGS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -80,7 +81,7 @@
             <End Role="PROFILES" EntitySet="PROFILES" />
             <End Role="EXPERIENCE" EntitySet="EXPERIENCE" />
           </AssociationSet>
-          <AssociationSet Name="FK__LISTINGS__userid__656C112C" Association="Self.FK__LISTINGS__userid__656C112C">
+          <AssociationSet Name="FK__LISTINGS__userid__71D1E811" Association="Self.FK__LISTINGS__userid__71D1E811">
             <End Role="PROFILES" EntitySet="PROFILES" />
             <End Role="LISTINGS" EntitySet="LISTINGS" />
           </AssociationSet>
@@ -89,27 +90,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjectoreeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="LISTING">
-          <Key>
-            <PropertyRef Name="projectid" />
-          </Key>
-          <Property Name="projectid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="discipline" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="6000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="contactnumber" Type="Int64" />
-          <Property Name="subcategory" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="supervisors" Type="String" MaxLength="765" FixedLength="false" Unicode="false" />
-          <Property Name="timeframe" Type="Int32" />
-          <Property Name="startdate" Type="DateTime" Precision="0" />
-          <Property Name="expiredate" Type="DateTime" Precision="0" />
-          <Property Name="mode" Type="Int32" />
-          <Property Name="location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PROFILE" Relationship="Self.FK__LISTINGS__userid__656C112C" FromRole="LISTINGS" ToRole="PROFILES" />
-        </EntityType>
         <EntityType Name="PROFILE">
           <Key>
             <PropertyRef Name="userid" />
@@ -124,32 +104,20 @@
           <Property Name="units" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="interests" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="bio" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="LISTINGS" Relationship="Self.FK__LISTINGS__userid__656C112C" FromRole="PROFILES" ToRole="LISTINGS" />
           <NavigationProperty Name="EXPERIENCEs" Relationship="ProjectoreeModel.FK__EXPERIENC__useri__6EF57B66" FromRole="PROFILE" ToRole="EXPERIENCE" />
+          <NavigationProperty Name="LISTINGS" Relationship="ProjectoreeModel.FK__LISTINGS__userid__71D1E811" FromRole="PROFILE" ToRole="LISTING" />
         </EntityType>
-        <Association Name="FK__LISTINGS__userid__656C112C">
-          <End Role="PROFILES" Type="Self.PROFILE" Multiplicity="1" />
-          <End Role="LISTINGS" Type="Self.LISTING" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PROFILES">
-              <PropertyRef Name="userid" />
-            </Principal>
-            <Dependent Role="LISTINGS">
-              <PropertyRef Name="userid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ProjectoreeEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="LISTINGS" EntityType="Self.LISTING" />
           <EntitySet Name="PROFILES" EntityType="Self.PROFILE" />
-          <AssociationSet Name="FK__LISTINGS__userid__656C112C" Association="Self.FK__LISTINGS__userid__656C112C">
-            <End Role="PROFILES" EntitySet="PROFILES" />
-            <End Role="LISTINGS" EntitySet="LISTINGS" />
-          </AssociationSet>
           <EntitySet Name="EXPERIENCEs" EntityType="ProjectoreeModel.EXPERIENCE" />
           <AssociationSet Name="FK__EXPERIENC__useri__6EF57B66" Association="ProjectoreeModel.FK__EXPERIENC__useri__6EF57B66">
             <End Role="PROFILE" EntitySet="PROFILES" />
             <End Role="EXPERIENCE" EntitySet="EXPERIENCEs" />
+          </AssociationSet>
+          <EntitySet Name="LISTINGS" EntityType="ProjectoreeModel.LISTING" />
+          <AssociationSet Name="FK__LISTINGS__userid__71D1E811" Association="ProjectoreeModel.FK__LISTINGS__userid__71D1E811">
+            <End Role="PROFILE" EntitySet="PROFILES" />
+            <End Role="LISTING" EntitySet="LISTINGS" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="EXPERIENCE">
@@ -173,33 +141,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LISTING">
+          <Key>
+            <PropertyRef Name="projectid" />
+          </Key>
+          <Property Name="projectid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="listingType" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="seeker" Type="Boolean" Nullable="false" />
+          <Property Name="discipline" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="6000" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="contactnumber" Type="Int64" />
+          <Property Name="subcategory" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="supervisors" Type="String" MaxLength="765" FixedLength="false" Unicode="false" />
+          <Property Name="timeframe" Type="Int32" />
+          <Property Name="startdate" Type="DateTime" Precision="0" />
+          <Property Name="expiredate" Type="DateTime" Precision="0" />
+          <Property Name="mode" Type="Int32" />
+          <Property Name="location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PROFILE" Relationship="ProjectoreeModel.FK__LISTINGS__userid__71D1E811" FromRole="LISTING" ToRole="PROFILE" />
+        </EntityType>
+        <Association Name="FK__LISTINGS__userid__71D1E811">
+          <End Type="ProjectoreeModel.PROFILE" Role="PROFILE" Multiplicity="1" />
+          <End Type="ProjectoreeModel.LISTING" Role="LISTING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFILE">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="LISTING">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ProjectoreeModelStoreContainer" CdmEntityContainer="ProjectoreeEntities">
-          <EntitySetMapping Name="LISTINGS">
-            <EntityTypeMapping TypeName="ProjectoreeModel.LISTING">
-              <MappingFragment StoreEntitySet="LISTINGS">
-                <ScalarProperty Name="projectid" ColumnName="projectid" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="discipline" ColumnName="discipline" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="contactnumber" ColumnName="contactnumber" />
-                <ScalarProperty Name="subcategory" ColumnName="subcategory" />
-                <ScalarProperty Name="supervisors" ColumnName="supervisors" />
-                <ScalarProperty Name="timeframe" ColumnName="timeframe" />
-                <ScalarProperty Name="startdate" ColumnName="startdate" />
-                <ScalarProperty Name="expiredate" ColumnName="expiredate" />
-                <ScalarProperty Name="mode" ColumnName="mode" />
-                <ScalarProperty Name="location" ColumnName="location" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PROFILES">
             <EntityTypeMapping TypeName="ProjectoreeModel.PROFILE">
               <MappingFragment StoreEntitySet="PROFILES">
@@ -222,6 +203,28 @@
                 <ScalarProperty Name="experience1" ColumnName="experience" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="experienceid" ColumnName="experienceid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LISTINGS">
+            <EntityTypeMapping TypeName="ProjectoreeModel.LISTING">
+              <MappingFragment StoreEntitySet="LISTINGS">
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="mode" ColumnName="mode" />
+                <ScalarProperty Name="expiredate" ColumnName="expiredate" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="timeframe" ColumnName="timeframe" />
+                <ScalarProperty Name="supervisors" ColumnName="supervisors" />
+                <ScalarProperty Name="subcategory" ColumnName="subcategory" />
+                <ScalarProperty Name="contactnumber" ColumnName="contactnumber" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="discipline" ColumnName="discipline" />
+                <ScalarProperty Name="seeker" ColumnName="seeker" />
+                <ScalarProperty Name="listingType" ColumnName="listingType" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="projectid" ColumnName="projectid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

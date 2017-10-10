@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Projectoree.Models.LISTING>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Post a New Project", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.seeker)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.listingType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.discipline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subcategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.expiredate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        @if (item.seeker)
+        {
+            <td>
+                Project Request
+            </td>
+        }
+        else
+        {
+            <td>
+                Project Listing
+            </td>
+        }
+        <td>
+            @Html.DisplayFor(modelItem => item.listingType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.discipline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.subcategory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.expiredate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.projectid }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.projectid })
+        </td>
+    </tr>
+}
+
+</table>
