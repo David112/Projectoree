@@ -10,11 +10,23 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<form method="POST" action="Listings/Search/">
+<form method="POST" action="Listings">
     <p>
-        <input type="text" name="Search">
+        <input type="text" name="Search" value="@if(ViewBag.SearchPhrase != null){@ViewBag.SearchPhrase}">
         <input type="submit" value="Filter" />
-    </p>
+        <input type="radio" id="Project" name="SearchType" value="Projects" 
+               @if (!(bool)ViewBag.SearchType)
+               {
+                   @:checked="checked" 
+               } required/>
+        <label for="Project">Projects</label>
+        <input type="radio" id="Candidate" name="SearchType" value="Candidates" 
+               @if ((bool)ViewBag.SearchType)
+               { 
+                   @:checked="checked" 
+               } required/>
+        <label for="Project">Candidates</label>
+</p>
 </form>
 
 <table class="table">

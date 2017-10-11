@@ -20,8 +20,35 @@ namespace Projectoree.Controllers
         // GET: Listings
         public ActionResult Index()
         {
-            var listings = db.LISTINGS.Include(l => l.PROFILE);
-            return View(listings.ToList());
+            if (Request.Form["Search"] != null)
+            {
+                var phrase = Request.Form["Search"];
+                var type = Request.Form["SearchType"];
+                bool seeker;
+
+                if (type == "Projects")
+                {
+                    ViewBag.SearchType = false;
+                    seeker = false;
+                }
+                else
+                {
+                    ViewBag.SearchType =  true;
+                    seeker = true;
+                }
+
+                ViewBag.SearchPhrase = phrase;
+                var listings = db.LISTINGS.Where(db => db.title.Contains(phrase) || db.description.Contains(phrase)).Where(db => db.seeker == seeker);
+
+                return View(listings);
+
+            }
+            else
+            {
+                ViewBag.SearchType = false;
+                var listings = db.LISTINGS.Include(l => l.PROFILE).Where(db => db.seeker == false);
+                return View(listings.ToList());
+            }
         }
 
         // POST: Search Results
@@ -29,6 +56,8 @@ namespace Projectoree.Controllers
         public ActionResult Search()
         {
             var id = Request.Form["Search"];
+            var type = Request.Form["SearchType"];
+
 
             var listings = db.LISTINGS.Where(db => db.title.Contains(id) || db.description.Contains(id));
             
