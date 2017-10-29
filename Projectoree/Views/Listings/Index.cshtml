@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Projectoree.Models.LISTING>
+
+@{
+    ViewBag.Title = "Index";
+    int counter = 0;
+    var last = TempData["last"];
+}
+<div class="row featurette">
+    <div class="col-md-7">
+        <h2 class="featurette-heading">Project Listings</h2>
+    </div>
+</div>
+
+<form method="POST" action="Listings">
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <div class="input-group">
+                @*
+                    <div class="input-group-btn search-panel">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span id="search_concept">Disipline</span> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#contains">Contains</a></li>
+                            <li><a href="#its_equal">It's equal</a></li>
+                            <li><a href="#greather_than">Greather than ></a></li>
+                            <li><a href="#less_than">Less than < </a></li>
+                            <li class="divider"></li>
+                            <li><a href="#all">Anything</a></li>
+                        </ul>
+                    </div>
+                *@
+                <input type="text" class="form-control col-xs-12" name="Search" placeholder="Search term...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+            <div class="btn-toolbar col-lg-4" role="toolbar" aria-label="...">
+
+                <div class="btn-group" role="group" aria-label="...">
+                    <input type="radio" id="Candidate" name="SearchType" value="Candidates"
+                           @if ((bool)ViewBag.SearchType) { @: checked="checked"
+                                                                                                                                                                                                                                                                                                                                                                                                                                    } required />
+                    <label for="Project">Candidates</label>
+                </div>
+                <div class="btn-group" role="group" aria-label="...">
+                    <input type="radio" id="Project" name="SearchType" value="Projects"
+                           @if (!(bool)ViewBag.SearchType) { @: checked="checked"
+                                                                                                                                                                                                                                                                                                                                                                                                                                } required />
+                    <label for="Project">Projects</label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="container marketing">
+    <hr>
+
+    @foreach (var item in Model)
+    {
+        @*
+             @if (counter % 2 == 0 && !(item == last))
+                {
+                @:style = "padding-right:20px; border-right: 1px solid #ccc;"
+                }
+        *@
+        <div class="col-lg-6">
+            <h2>@item.title</h2>
+            <p class="text-center">@item.discipline</p>
+            @if (item.description.Length > 400)
+                {
+                    item.description = item.description.Substring(0, 400) + "...";
+                }
+            @Html.DisplayFor(modelItem => item.description)
+            <p>@Html.ActionLink("Details", "Details", new { id = item.projectid }, new { @class = "btn btn-default" })</p>
+        </div>
+
+        counter++;
+    }
+
+</div>
+
+
+

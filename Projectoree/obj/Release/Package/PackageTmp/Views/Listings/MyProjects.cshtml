@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Projectoree.Models.LISTING>
+
+@{
+    ViewBag.Title = "Index";
+    int counter = 0;
+    var last = TempData["Last"];
+}
+<div class="row featurette">
+    <div class="col-md-7">
+        <h2 class="featurette-heading">My Projects</h2>
+        <p>
+            @Html.ActionLink("Post a New Project", "Create")
+        </p>
+    </div>
+</div>
+
+    <div class="container marketing">
+        <hr>
+        
+        @if (Model.ToList().Count == 0)
+        {
+            <h2 class="text-center">No projects found</h2>
+            <p class="text-center">@Html.ActionLink("Post a New Project?", "Create")</p>
+        }
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-6" @if (counter % 2 == 0 && !(item == last))
+                {
+                @:style = "padding-right:20px; border-right: 1px solid #ccc;"
+                }>
+                <h2>@item.title</h2>
+                <p class="text-center">@item.discipline - @if(!@item.seeker)
+                {
+                    @:Project
+                }
+                else
+                {
+                    @:Candidate
+                }</p>
+                @if (item.description.Length > 400)
+                {
+                    item.description = item.description.Substring(0, 400) + "...";
+                }
+                @Html.DisplayFor(modelItem => item.description)
+                <p>@Html.ActionLink("Details", "Details", new { id = item.projectid }, new { @class = "btn btn-default" }) | @Html.ActionLink("Remove", "Delete", new { id = item.projectid }, new { @class = "btn btn-default" })</p>
+            </div>
+
+            counter++;
+        }
+
+    </div>

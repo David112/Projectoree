@@ -25,8 +25,8 @@ namespace Projectoree.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<EXPERIENCE> EXPERIENCEs { get; set; }
         public virtual DbSet<LISTING> LISTINGS { get; set; }
         public virtual DbSet<PROFILE> PROFILES { get; set; }
-        public virtual DbSet<EXPERIENCE> EXPERIENCEs { get; set; }
     }
 }

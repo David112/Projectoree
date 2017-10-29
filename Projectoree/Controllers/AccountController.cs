@@ -77,6 +77,7 @@ namespace Projectoree.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            
             switch (result)
             {
                 case SignInStatus.Success:
@@ -169,13 +170,15 @@ namespace Projectoree.Controllers
                     Profile.firstname = model.Givenname;
                     Profile.lastname = model.Surname;
                     Profile.discipline = model.Discipline;
-                    Profile.email = model.Email;;
-                    
+                    Profile.email = model.Email;
+
+                    Session["fname"] = Profile.firstname;
                     TempData["profile"] = Profile;
                     return RedirectToAction("Create", "Profiles");
                 }
                 AddErrors(result);
             }
+
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -409,11 +412,10 @@ namespace Projectoree.Controllers
         }
 
         //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //Account/LogOff
         public ActionResult LogOff()
         {
+            Session.Remove("fname");
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }

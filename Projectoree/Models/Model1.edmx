@@ -4,14 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProjectoreeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+      <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="EXPERIENCE">
           <Key>
-            <PropertyRef Name="userid" />
-            <PropertyRef Name="experience" />
+            <PropertyRef Name="experienceid" />
           </Key>
+          <Property Name="experienceid" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userid" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="experience" Type="varchar" MaxLength="2000" Nullable="false" />
         </EntityType>
@@ -22,7 +20,8 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
           <Property Name="projectid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userid" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="type" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="listingType" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="seeker" Type="bit" Nullable="false" />
           <Property Name="discipline" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="6000" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="255" />
@@ -50,7 +49,7 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
           <Property Name="interests" Type="varchar" MaxLength="2000" />
           <Property Name="bio" Type="varchar" MaxLength="2000" />
         </EntityType>
-        <Association Name="FK__EXPERIENC__useri__6754599E">
+        <Association Name="FK__EXPERIENC__useri__164452B1">
           <End Role="PROFILES" Type="Self.PROFILES" Multiplicity="1" />
           <End Role="EXPERIENCE" Type="Self.EXPERIENCE" Multiplicity="*" />
           <ReferentialConstraint>
@@ -62,7 +61,7 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LISTINGS__userid__656C112C">
+        <Association Name="FK__LISTINGS__userid__1367E606">
           <End Role="PROFILES" Type="Self.PROFILES" Multiplicity="1" />
           <End Role="LISTINGS" Type="Self.LISTINGS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -74,20 +73,15 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProjectoreeModelStoreContainer">
-          <EntitySet Name="LISTINGS" EntityType="Self.LISTINGS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PROFILES" EntityType="Self.PROFILES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EXPERIENCE" EntityType="Self.EXPERIENCE" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [EXPERIENCE].[userid] AS [userid], 
-    [EXPERIENCE].[experience] AS [experience]
-    FROM [dbo].[EXPERIENCE] AS [EXPERIENCE]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__EXPERIENC__useri__6754599E" Association="Self.FK__EXPERIENC__useri__6754599E">
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="EXPERIENCE" EntityType="Self.EXPERIENCE" Schema="Projectoree" store:Type="Tables" />
+          <EntitySet Name="LISTINGS" EntityType="Self.LISTINGS" Schema="Projectoree" store:Type="Tables" />
+          <EntitySet Name="PROFILES" EntityType="Self.PROFILES" Schema="Projectoree" store:Type="Tables" />
+          <AssociationSet Name="FK__EXPERIENC__useri__164452B1" Association="Self.FK__EXPERIENC__useri__164452B1">
             <End Role="PROFILES" EntitySet="PROFILES" />
             <End Role="EXPERIENCE" EntitySet="EXPERIENCE" />
           </AssociationSet>
-          <AssociationSet Name="FK__LISTINGS__userid__656C112C" Association="Self.FK__LISTINGS__userid__656C112C">
+          <AssociationSet Name="FK__LISTINGS__userid__1367E606" Association="Self.FK__LISTINGS__userid__1367E606">
             <End Role="PROFILES" EntitySet="PROFILES" />
             <End Role="LISTINGS" EntitySet="LISTINGS" />
           </AssociationSet>
@@ -96,7 +90,16 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ProjectoreeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EXPERIENCE">
+          <Key>
+            <PropertyRef Name="experienceid" />
+          </Key>
+          <Property Name="experienceid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="experience1" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PROFILE" Relationship="Self.FK__EXPERIENC__useri__164452B1" FromRole="EXPERIENCE" ToRole="PROFILES" />
+        </EntityType>
         <EntityType Name="LISTING">
           <Key>
             <PropertyRef Name="projectid" />
@@ -104,7 +107,8 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
           <Property Name="projectid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="listingType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seeker" Type="Boolean" Nullable="false" />
           <Property Name="discipline" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="6000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -116,7 +120,7 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
           <Property Name="expiredate" Type="DateTime" Precision="0" />
           <Property Name="mode" Type="Int32" />
           <Property Name="location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PROFILE" Relationship="Self.FK__LISTINGS__userid__656C112C" FromRole="LISTINGS" ToRole="PROFILES" />
+          <NavigationProperty Name="PROFILE" Relationship="Self.FK__LISTINGS__userid__1367E606" FromRole="LISTINGS" ToRole="PROFILES" />
         </EntityType>
         <EntityType Name="PROFILE">
           <Key>
@@ -132,31 +136,10 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
           <Property Name="units" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="interests" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="bio" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="LISTINGS" Relationship="Self.FK__LISTINGS__userid__656C112C" FromRole="PROFILES" ToRole="LISTINGS" />
-          <NavigationProperty Name="EXPERIENCEs" Relationship="Self.FK__EXPERIENC__useri__6754599E" FromRole="PROFILES" ToRole="EXPERIENCE" />
+          <NavigationProperty Name="EXPERIENCEs" Relationship="Self.FK__EXPERIENC__useri__164452B1" FromRole="PROFILES" ToRole="EXPERIENCE" />
+          <NavigationProperty Name="LISTINGS" Relationship="Self.FK__LISTINGS__userid__1367E606" FromRole="PROFILES" ToRole="LISTINGS" />
         </EntityType>
-        <EntityType Name="EXPERIENCE">
-          <Key>
-            <PropertyRef Name="userid" />
-            <PropertyRef Name="experience1" />
-          </Key>
-          <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="experience1" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="PROFILE" Relationship="Self.FK__EXPERIENC__useri__6754599E" FromRole="EXPERIENCE" ToRole="PROFILES" />
-        </EntityType>
-        <Association Name="FK__LISTINGS__userid__656C112C">
-          <End Role="PROFILES" Type="Self.PROFILE" Multiplicity="1" />
-          <End Role="LISTINGS" Type="Self.LISTING" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PROFILES">
-              <PropertyRef Name="userid" />
-            </Principal>
-            <Dependent Role="LISTINGS">
-              <PropertyRef Name="userid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__EXPERIENC__useri__6754599E">
+        <Association Name="FK__EXPERIENC__useri__164452B1">
           <End Role="PROFILES" Type="Self.PROFILE" Multiplicity="1" />
           <End Role="EXPERIENCE" Type="Self.EXPERIENCE" Multiplicity="*" />
           <ReferentialConstraint>
@@ -168,17 +151,29 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__LISTINGS__userid__1367E606">
+          <End Role="PROFILES" Type="Self.PROFILE" Multiplicity="1" />
+          <End Role="LISTINGS" Type="Self.LISTING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFILES">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="LISTINGS">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ProjectoreeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EXPERIENCEs" EntityType="Self.EXPERIENCE" />
           <EntitySet Name="LISTINGS" EntityType="Self.LISTING" />
           <EntitySet Name="PROFILES" EntityType="Self.PROFILE" />
-          <EntitySet Name="EXPERIENCEs" EntityType="Self.EXPERIENCE" />
-          <AssociationSet Name="FK__LISTINGS__userid__656C112C" Association="Self.FK__LISTINGS__userid__656C112C">
-            <End Role="PROFILES" EntitySet="PROFILES" />
-            <End Role="LISTINGS" EntitySet="LISTINGS" />
-          </AssociationSet>
-          <AssociationSet Name="FK__EXPERIENC__useri__6754599E" Association="Self.FK__EXPERIENC__useri__6754599E">
+          <AssociationSet Name="FK__EXPERIENC__useri__164452B1" Association="Self.FK__EXPERIENC__useri__164452B1">
             <End Role="PROFILES" EntitySet="PROFILES" />
             <End Role="EXPERIENCE" EntitySet="EXPERIENCEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LISTINGS__userid__1367E606" Association="Self.FK__LISTINGS__userid__1367E606">
+            <End Role="PROFILES" EntitySet="PROFILES" />
+            <End Role="LISTINGS" EntitySet="LISTINGS" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -186,14 +181,24 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ProjectoreeModelStoreContainer" CdmEntityContainer="ProjectoreeEntities">
+        <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="ProjectoreeEntities">
+          <EntitySetMapping Name="EXPERIENCEs">
+            <EntityTypeMapping TypeName="Model1.EXPERIENCE">
+              <MappingFragment StoreEntitySet="EXPERIENCE">
+                <ScalarProperty Name="experienceid" ColumnName="experienceid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="experience1" ColumnName="experience" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LISTINGS">
-            <EntityTypeMapping TypeName="ProjectoreeModel.LISTING">
+            <EntityTypeMapping TypeName="Model1.LISTING">
               <MappingFragment StoreEntitySet="LISTINGS">
                 <ScalarProperty Name="projectid" ColumnName="projectid" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="listingType" ColumnName="listingType" />
+                <ScalarProperty Name="seeker" ColumnName="seeker" />
                 <ScalarProperty Name="discipline" ColumnName="discipline" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -209,7 +214,7 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PROFILES">
-            <EntityTypeMapping TypeName="ProjectoreeModel.PROFILE">
+            <EntityTypeMapping TypeName="Model1.PROFILE">
               <MappingFragment StoreEntitySet="PROFILES">
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
@@ -221,14 +226,6 @@ warning 6002: The table/view 'Projectoree.dbo.EXPERIENCE' does not have a primar
                 <ScalarProperty Name="units" ColumnName="units" />
                 <ScalarProperty Name="interests" ColumnName="interests" />
                 <ScalarProperty Name="bio" ColumnName="bio" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EXPERIENCEs">
-            <EntityTypeMapping TypeName="ProjectoreeModel.EXPERIENCE">
-              <MappingFragment StoreEntitySet="EXPERIENCE">
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="experience1" ColumnName="experience" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

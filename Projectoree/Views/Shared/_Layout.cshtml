@@ -1,45 +1,75 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="PRojectoree - linking students and staff through projects">
+    <meta name="author" content="">
+    <title>Projectoree</title>
+    <!-- Bootstrap core CSS -->
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/carousel.css")
+    @RenderSection("scripts", required: false)
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+<!-- NAVBAR ================================================== -->
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-wrapper" id="top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Projectoree", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Find a Project", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Post a Project", "About", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Pause", "Pause", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/Home">Projectoree</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Find a Project", "Index", "Listings")</li>
+                            <li>@Html.ActionLink("Post a Project", "Create", "Listings")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            @*<li>@Html.ActionLink("Pause", "Pause", "Home")</li>*@
+                        </ul>
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </nav>
         </div>
     </div>
-    <div class="container body-content">
+    <!-- NAVBAR - END ================================================== -->
+
+    @if (ViewBag.page == "Home/Index")
+    {
+        @Html.Partial("ProjectoreeHome")
+    }
+
+    <div class="container marketing">
         @RenderBody()
-        <hr />
+
+      <hr class="featurette-divider">
+
+        <!-- FOOTER -->
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p class="pull-right"><a href="#top">Back to top</a></p>
+            <p>&copy; @DateTime.Now.Year - Projectoree · @Html.ActionLink("About", "About", "Home") · @Html.ActionLink("My Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</p>
         </footer>
     </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/holder.min.js"></script>
+    <script src="~/Scripts/ie10-viewport-bug-workaround.js"></script>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg>
 </body>
 </html>

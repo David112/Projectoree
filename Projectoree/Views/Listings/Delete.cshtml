@@ -1,0 +1,67 @@
+﻿@model Projectoree.Models.LISTING
+
+@{
+    ViewBag.Title = "Delete";
+}
+<div class="row featurette">
+    <div class="col-md-7">
+        <h2 class="featurette-heading">Delete Listing</h2>
+    </div>
+</div>
+
+<h3>Are you sure you want to delete this listing?</h3>
+<div class="row">
+    <div class="col-lg-4 float-left text-left">
+        @if (@Model.listingType != null)
+        {
+            <h2 class="text-left">Category <span class="text-muted">@Model.listingType</span></h2>
+        }
+
+        @if (@Model.discipline != null)
+        {
+            <h3 class="text-left">Discipline <span class="text-muted">@Model.discipline</span></h3>
+        }
+        @if (@Model.email != null)
+        {
+            <h3 class="text-left">Email Address <span class="text-muted">@Model.email</span></h3>
+        }
+        @if (@Model.contactnumber != null)
+        {
+            <h3 class="text-left">Contact Number <span class="text-muted">@Model.contactnumber</span></h3>
+        }
+        @if (@Model.supervisors != null)
+        {
+            <h3 class="text-left">Supervisors <span class="text-muted">@Model.supervisors</span></h3>
+        }
+        @if (@Model.timeframe != null)
+        {
+            <h3 class="text-left">Time Frame (Weeks) <span class="text-muted">@Model.timeframe</span></h3>
+        }
+        @if (@Model.startdate != null)
+        {
+            <h3 class="text-left">Project Start Date <span class="text-muted">@Model.startdate</span></h3>
+        }
+        @if (@Model.expiredate != null)
+        {
+            <h3 class="text-left">Project Expiry Date <span class="text-muted">@Model.expiredate</span></h3>
+        }
+        @*<h3 class="text-left">Project requires onsite attendance <span class="text-muted"></span></h3>*@
+        @if (@Model.location != null)
+        {
+            <h3 class="text-left">Location <span class="text-muted">@Model.location</span></h3>
+        }
+    </div>
+    <div class="col-lg-8 float-left text-left">
+        <h2 class="text-left">Description</h2>
+        <p class="lead text-left">@Model.description</p>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back", "MyProjects", null, new { @class = "btn btn-default" })
+    </div>
+}
