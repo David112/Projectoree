@@ -1,0 +1,34 @@
+﻿@model Projectoree.Models.EXPERIENCE
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EXPERIENCE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.experience1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.experience1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PROFILE.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PROFILE.firstname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.experienceid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

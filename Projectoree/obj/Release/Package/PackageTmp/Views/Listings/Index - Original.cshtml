@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Projectoree.Models.LISTING>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.listingType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.seeker)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.discipline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.contactnumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subcategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.supervisors)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.timeframe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.expiredate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PROFILE.firstname)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.listingType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.seeker)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.discipline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.contactnumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.subcategory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.supervisors)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.timeframe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.expiredate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROFILE.firstname)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.projectid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.projectid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.projectid })
+        </td>
+    </tr>
+}
+
+</table>

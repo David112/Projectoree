@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectoreeModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EXPERIENCE">
+    <Key>
+      <PropertyRef Name="experienceid" />
+    </Key>
+    <Property Name="experienceid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="experience1" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PROFILE" Relationship="Self.FK__EXPERIENC__useri__164452B1" FromRole="EXPERIENCE" ToRole="PROFILES" />
+  </EntityType>
+  <EntityType Name="LISTING">
+    <Key>
+      <PropertyRef Name="projectid" />
+    </Key>
+    <Property Name="projectid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="listingType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="seeker" Type="Boolean" Nullable="false" />
+    <Property Name="discipline" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="6000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="contactnumber" Type="Int64" />
+    <Property Name="subcategory" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="supervisors" Type="String" MaxLength="765" FixedLength="false" Unicode="false" />
+    <Property Name="timeframe" Type="Int32" />
+    <Property Name="startdate" Type="DateTime" Precision="0" />
+    <Property Name="expiredate" Type="DateTime" Precision="0" />
+    <Property Name="mode" Type="Int32" />
+    <Property Name="location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PROFILE" Relationship="Self.FK__LISTINGS__userid__1367E606" FromRole="LISTINGS" ToRole="PROFILES" />
+  </EntityType>
+  <EntityType Name="PROFILE">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="firstname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="discipline" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contactnumber" Type="Int64" />
+    <Property Name="skills" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="units" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="interests" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="bio" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EXPERIENCEs" Relationship="Self.FK__EXPERIENC__useri__164452B1" FromRole="PROFILES" ToRole="EXPERIENCE" />
+    <NavigationProperty Name="LISTINGS" Relationship="Self.FK__LISTINGS__userid__1367E606" FromRole="PROFILES" ToRole="LISTINGS" />
+  </EntityType>
+  <Association Name="FK__EXPERIENC__useri__164452B1">
+    <End Role="PROFILES" Type="Self.PROFILE" Multiplicity="1" />
+    <End Role="EXPERIENCE" Type="Self.EXPERIENCE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROFILES">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="EXPERIENCE">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LISTINGS__userid__1367E606">
+    <End Role="PROFILES" Type="Self.PROFILE" Multiplicity="1" />
+    <End Role="LISTINGS" Type="Self.LISTING" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROFILES">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="LISTINGS">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjectoreeEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EXPERIENCEs" EntityType="Self.EXPERIENCE" />
+    <EntitySet Name="LISTINGS" EntityType="Self.LISTING" />
+    <EntitySet Name="PROFILES" EntityType="Self.PROFILE" />
+    <AssociationSet Name="FK__EXPERIENC__useri__164452B1" Association="Self.FK__EXPERIENC__useri__164452B1">
+      <End Role="PROFILES" EntitySet="PROFILES" />
+      <End Role="EXPERIENCE" EntitySet="EXPERIENCEs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LISTINGS__userid__1367E606" Association="Self.FK__LISTINGS__userid__1367E606">
+      <End Role="PROFILES" EntitySet="PROFILES" />
+      <End Role="LISTINGS" EntitySet="LISTINGS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

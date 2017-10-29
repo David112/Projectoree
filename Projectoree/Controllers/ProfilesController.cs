@@ -20,7 +20,15 @@ namespace Projectoree.Controllers
         // GET: Profiles
         public ActionResult Index()
         {
-            return View(db.PROFILES.ToList());
+            if (User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("MyProjects", "Listings");
+            }
+            //return View(db.PROFILES.ToList());
         }
 
         // GET: Profiles/Details/5
@@ -28,7 +36,7 @@ namespace Projectoree.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Manage");
             }
             PROFILE Profile = db.PROFILES.Find(id);
             if (Profile == null)
@@ -65,7 +73,7 @@ namespace Projectoree.Controllers
                 db.PROFILES.Add(Profile);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Index", "Home");
             }
 
             return RedirectToAction("Index", "Manage");
@@ -80,7 +88,7 @@ namespace Projectoree.Controllers
                     //new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PROFILE Profile = db.PROFILES.Find(id);
-            if (Profile == null)
+            if (Profile == null || Profile.userid != User.Identity.GetUserId())
             {
                 return RedirectToAction("Index", "Manage");
             }
@@ -94,6 +102,11 @@ namespace Projectoree.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "userid,firstname,lastname,email,discipline,contactnumber,skills,units,interests,bio")] PROFILE Profile)
         {
+
+            if (Profile.userid != User.Identity.GetUserId())
+            {
+                return RedirectToAction("Index", "Manage");
+            }
             if (ModelState.IsValid)
             {
                 Profile.email = User.Identity.GetUserName();

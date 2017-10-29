@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Projectoree.Models.LISTING>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Projectoree</h1>
+    <p class="lead">Linking students and academics through project innovation.</p>
+
+    <div class="container">
+        <form method="POST" action="Listings">
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <div class="input-group">
+                        <div class="input-group-btn search-panel">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span id="search_concept">Filter by</span> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#contains">Contains</a></li>
+                                <li><a href="#its_equal">It's equal</a></li>
+                                <li><a href="#greather_than">Greather than ></a></li>
+                                <li><a href="#less_than">Less than < </a></li>
+                                <li class="divider"></li>
+                                <li><a href="#all">Anything</a></li>
+                            </ul>
+                        </div>
+                        <input type="text" class="form-control col-xs-12" name="Search" placeholder="Search term...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="row row-eq-height">
+    @if (Model != null)
+    {
+        foreach (var listing in Model)
+        {
+            <div class="col-md-4" href="#">
+                <h2>@Html.DisplayFor(modelItem => listing.title)</h2>
+                <p>
+                    @if (listing.description.Length > 100)
+                    {
+                        listing.description = listing.description.Substring(0, 100) + "...";
+                    }
+                    @Html.DisplayFor(modelItem => listing.description)
+                </p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            </div>
+        }
+    }
+    @*
+    else
+    {
+        <div class="row row-eq-height">
+            <div class="col-md-4">
+                <h2>Need an Account</h2>
+                <p>
+                    Create an account to start
+                </p>
+                <p><a class="btn btn-default lower-right-button" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Get more libraries</h2>
+                <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+                <p><a class="btn btn-default lower-right-button" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Web Hosting</h2>
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </div>
+        </div>
+    }*@
+</div>

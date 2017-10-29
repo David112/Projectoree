@@ -1,31 +1,29 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-
-<div class="jumbotron">
-    <h1>Projectoree</h1>
-    <p class="lead">Linking students and academics through project innovation.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+﻿@model IEnumerable<Projectoree.Models.LISTING>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    @if (Model != null)
+    {
+        foreach (var listing in Model)
+        {
+
+            <div class="col-lg-4">
+                <h2>
+                    @if (listing.title.Length > 32)
+                    {
+                        listing.title = listing.title.Substring(0, 32) + "...";
+                    }
+                    @Html.DisplayFor(modelItem => listing.title)
+                </h2>
+                <h3 class="text-muted">@Html.DisplayFor(modelItem => listing.discipline)</h3>
+                <p>
+                    @if (listing.description.Length > 400)
+                    {
+                        listing.description = listing.description.Substring(0, 400) + "...";
+                    }
+                    @Html.DisplayFor(modelItem => listing.description)
+                </p>
+                <p>@Html.ActionLink("Details", "Details", "Listings", new { id = listing.projectid }, new { @class = "btn btn-default" })</p>
+            </div>
+        }
+    }
 </div>

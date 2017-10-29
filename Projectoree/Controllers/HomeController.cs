@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Projectoree.Models;
 
 namespace Projectoree.Controllers
 {
     public class HomeController : Controller
     {
+        private ProjectoreeEntities db = new ProjectoreeEntities();
+
         public ActionResult Index()
         {
-            return View();
+            var listings = db.LISTINGS.OrderBy(db => db.projectid).Take(6);
+            ViewBag.page = "Home/Index";
+            return View(listings);
         }
 
         public ActionResult Pause()

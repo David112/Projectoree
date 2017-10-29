@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNet.Identity
+@model Projectoree.Models.LISTING
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="row featurette">
+    <div class="col-md-7">
+        <h2 class="featurette-heading">@Model.title</h2>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-lg-4 float-left text-left">
+        <h2 class="text-left">Category <span class="text-muted">@Model.listingType</span></h2>
+        <h3 class="text-left">Discipline <span class="text-muted">@Model.discipline</span></h3>
+        <h3 class="text-left">Email Address <span class="text-muted">@Model.email</span></h3>
+        <h3 class="text-left">Contact Number <span class="text-muted">@Model.contactnumber</span></h3>
+        <h3 class="text-left">Supervisors <span class="text-muted">@Model.supervisors</span></h3>
+        <h3 class="text-left">Time Frame (Weeks) <span class="text-muted">@Model.timeframe</span></h3>
+        <h3 class="text-left">Project Start Date <span class="text-muted">@Model.startdate</span></h3>
+        <h3 class="text-left">Project Expiry Date <span class="text-muted">@Model.expiredate</span></h3>
+        @*<h3 class="text-left">Project requires onsite attendance <span class="text-muted"></span></h3>*@
+        <h3 class="text-left">Location <span class="text-muted">@Model.location</span></h3>
+    </div>
+    <div class="col-lg-8 float-left text-left">
+        <h2 class="text-left">Description</h2>
+        <p class="lead text-left">@Model.description</p>
+    </div>
+</div>
+
+<div>
+    <hr />
+<p>
+    @if (Model.userid == User.Identity.GetUserId() && User.Identity.GetUserId() != null)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.projectid }, new { @class = "btn btn-default" });
+        @: |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink(@Model.PROFILE.firstname + "'s Profile", "Details", "Profiles", new { id = Model.userid }, new { @class = "btn btn-default" })
+        @: | 
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    }
+</p>

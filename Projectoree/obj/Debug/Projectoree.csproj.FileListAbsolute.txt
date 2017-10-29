@@ -149,6 +149,6 @@ D:\PMO301\Projectoree\Projectoree\bin\Microsoft.Owin.Security.OAuth.xml
 D:\PMO301\Projectoree\Projectoree\bin\Microsoft.Owin.Security.Google.xml
 D:\PMO301\Projectoree\Projectoree\bin\Microsoft.Owin.Security.Twitter.xml
 D:\PMO301\Projectoree\Projectoree\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\PMO301\Projectoree\Projectoree\obj\Debug\Projectoree.csprojResolveAssemblyReference.cache
 D:\PMO301\Projectoree\Projectoree\obj\Debug\Projectoree.dll
 D:\PMO301\Projectoree\Projectoree\obj\Debug\Projectoree.pdb
+D:\PMO301\Projectoree\Projectoree\obj\Debug\Projectoree.csprojResolveAssemblyReference.cache
